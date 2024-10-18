@@ -1,5 +1,5 @@
 enum TournamentPaymentCurrency {
-  Points = 'points',
+  Coins = 'coins',
   Ton = 'ton',
 }
 

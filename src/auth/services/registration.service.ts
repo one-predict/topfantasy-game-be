@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectTransactionsManager, TransactionsManager } from '@core';
 import { InjectUserService, UserEntity, UserService } from '@user';
-import { InjectRewardsNotificationService } from '@rewards/decorators';
-import { RewardsNotificationService } from '@rewards/services';
-import { RewardsNotificationType } from '@rewards/enums';
 
 export interface RegisterUserParams {
   externalId: string | number;
@@ -24,13 +21,12 @@ export class DefaultRegistrationService implements RegistrationService {
 
   constructor(
     @InjectUserService() private readonly userService: UserService,
-    @InjectRewardsNotificationService() private readonly rewardsNotificationService: RewardsNotificationService,
     @InjectTransactionsManager() private readonly transactionsManager: TransactionsManager,
   ) {}
 
   public async register(params: RegisterUserParams) {
     return this.transactionsManager.useTransaction(async () => {
-      const user = await this.userService.create({
+      return this.userService.create({
         externalId: params.externalId,
         username: params.userName,
         firstName: params.firstName,
@@ -39,20 +35,6 @@ export class DefaultRegistrationService implements RegistrationService {
         referralId: params.referralId,
         coinsBalance: this.INITIAL_COINS_BALANCE,
       });
-
-      await this.rewardsNotificationService.batchCreate({
-        batch: [
-          {
-            type: RewardsNotificationType.Coins,
-            recipientId: user.getId(),
-            payload: {
-              coins: this.INITIAL_COINS_BALANCE,
-            },
-          },
-        ],
-      });
-
-      return user;
     });
   }
 }

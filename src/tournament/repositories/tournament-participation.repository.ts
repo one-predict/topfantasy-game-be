@@ -18,7 +18,7 @@ export interface CreateTournamentParticipationEntityParams {
   user: string;
   tournament: string;
   fantasyPoints: number;
-  selectedProjects: string[];
+  selectedFantasyTargets: string[];
   walletAddress?: string;
 }
 

@@ -1,10 +1,10 @@
-import { Controller, UseGuards, Post, Get, Param, NotFoundException, Session, Query, Body } from '@nestjs/common';
+import { Controller, UseGuards, Post, Get, Param, NotFoundException, Session, Body } from '@nestjs/common';
 import * as secureSession from '@fastify/secure-session';
 import { AuthGuard } from '@common/guards';
 import { InjectTournamentService, InjectTournamentParticipationService } from '@tournament/decorators';
 import { TournamentParticipationService, TournamentService } from '@tournament/services';
 import { TournamentEntity, TournamentParticipationEntity } from '@tournament/entities';
-import { CreateTournamentParticipationDto, ListLatestTournamentsDto } from '@tournament/dto';
+import { CreateTournamentParticipationDto } from '@tournament/dto';
 
 @Controller()
 export default class TournamentController {
@@ -16,7 +16,7 @@ export default class TournamentController {
 
   @Get('/tournaments/latest')
   @UseGuards(AuthGuard)
-  public async getLatestTournaments(@Query() query: ListLatestTournamentsDto) {
+  public async getLatestTournaments() {
     const latestTournaments = await this.tournamentService.listLatest();
 
     return latestTournaments.map((tournament) => this.mapTournamentEntityToViewModel(tournament));
@@ -75,7 +75,7 @@ export default class TournamentController {
     await this.tournamentParticipationService.create({
       tournamentId,
       userId: session.get('userId'),
-      selectedProjectIds: body.selectedProjectIds,
+      selectedFantasyTargetIds: body.selectedFantasyTargetIds,
       walletAddress: body.walletAddress,
     });
 
@@ -95,7 +95,8 @@ export default class TournamentController {
       endTimestamp: tournament.getEndTimestamp(),
       registrationEndTimestamp: tournament.getRegistrationEndTimestamp(),
       paymentCurrency: tournament.getPaymentCurrency(),
-      availableProjectIds: tournament.getAvailableProjectIds(),
+      availableFantasyTargetIds: tournament.getAvailableFantasyTargetIds(),
+      availableFantasyTargetsPoints: tournament.getAvailableFantasyTargetsPoints(),
     };
   }
 
@@ -104,9 +105,8 @@ export default class TournamentController {
       id: tournamentParticipation.getId(),
       userId: tournamentParticipation.getUserId(),
       tournamentId: tournamentParticipation.getTournamentId(),
-      selectedProjectIds: tournamentParticipation.getSelectedProjectIds(),
+      selectedFantasyTargetIds: tournamentParticipation.getSelectedFantasyTargetIds(),
       fantasyPoints: tournamentParticipation.getFantasyPoints(),
-      projectsFantasyPoints: tournamentParticipation.getProjectsFantasyPoints(),
       walletAddress: tournamentParticipation.getWalletAddress(),
     };
   }

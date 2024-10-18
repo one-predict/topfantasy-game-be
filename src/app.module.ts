@@ -39,7 +39,7 @@ import { LockModule } from '@lock';
 import { RedisLockModule } from '@redis-lock';
 import { ConsumersModule } from '@consumers';
 import { SqsConsumersModule } from '@sqs-consumers';
-import { ProjectsModule } from '@projects';
+import { FantasyTargetsModule } from '@fantasy-targets';
 import { TournamentModule } from '@tournament';
 
 @Module({
@@ -204,7 +204,7 @@ import { TournamentModule } from '@tournament';
     QuestsModule,
     QuestsProcessingModule,
     ConsumersModule,
-    ProjectsModule,
+    FantasyTargetsModule,
     TournamentModule,
   ],
 })

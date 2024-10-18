@@ -6,9 +6,8 @@ export interface TournamentParticipationEntity {
   getId(): string;
   getTournamentId(): string;
   getUserId(): string;
-  getSelectedProjectIds(): string[];
+  getSelectedFantasyTargetIds(): string[];
   getFantasyPoints(): number;
-  getProjectsFantasyPoints(): Record<string, number>;
   getWalletAddress(): string;
 }
 
@@ -31,16 +30,12 @@ export class MongoTournamentParticipationEntity implements TournamentParticipati
     return this.tournamentParticipationDocument.user.toString();
   }
 
-  public getSelectedProjectIds() {
-    return this.tournamentParticipationDocument.selectedProjects;
+  public getSelectedFantasyTargetIds() {
+    return this.tournamentParticipationDocument.selectedFantasyTargets;
   }
 
   public getFantasyPoints() {
     return this.tournamentParticipationDocument.fantasyPoints;
-  }
-
-  public getProjectsFantasyPoints() {
-    return this.tournamentParticipationDocument.projectsFantasyPoints;
   }
 
   public getWalletAddress() {

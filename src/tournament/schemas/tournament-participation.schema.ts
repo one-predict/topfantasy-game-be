@@ -11,19 +11,16 @@ export class TournamentParticipation {
   user: ObjectId;
 
   @Prop([{ required: true, type: mongoose.Schema.Types.String }])
-  selectedProjects: string[];
+  selectedFantasyTargets: string[];
 
   @Prop({ required: true, type: mongoose.Schema.Types.Number })
   fantasyPoints: number;
 
   @Prop({ required: false, type: mongoose.Schema.Types.String })
   walletAddress: string;
-
-  @Prop({ required: false, type: mongoose.Schema.Types.Mixed, default: {} })
-  projectsFantasyPoints: Record<string, number>;
 }
 
 export const TournamentParticipationSchema = SchemaFactory.createForClass(TournamentParticipation);
 
 TournamentParticipationSchema.index({ user: 1, tournament: 1 }, { unique: true });
-TournamentParticipationSchema.index({ tournament: 1, points: -1, _id: 1 });
+TournamentParticipationSchema.index({ tournament: 1, fantasyPoints: -1, _id: 1 });

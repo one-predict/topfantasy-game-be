@@ -41,6 +41,7 @@ import { ConsumersModule } from '@consumers';
 import { SqsConsumersModule } from '@sqs-consumers';
 import { FantasyTargetsModule } from '@fantasy-targets';
 import { TournamentModule } from '@tournament';
+import { TwitterStatsModule } from '@twitter-stats';
 
 @Module({
   imports: [
@@ -64,6 +65,8 @@ import { TournamentModule } from '@tournament';
         SQS_BASE_URL_PREFIX: Joi.string().optional(),
         DISABLE_CONSUMERS: Joi.boolean().optional().default(false),
         APPLICATION_MODE: Joi.string().optional().default(ApplicationMode.Default),
+        APIFY_API_TOKEN: Joi.string().optional(),
+        APIFY_ACTOR_ID: Joi.string().optional(),
       }),
     }),
     ScheduleModule.forRoot(),
@@ -99,7 +102,7 @@ import { TournamentModule } from '@tournament';
       },
       inject: [ConfigService],
     }),
-    SnsModule.forRootAsync({
+    SqsModule.forRootAsync({
       imports: [ConfigModule],
       useConfigFactory: (configService: ConfigService) => {
         return {
@@ -146,6 +149,15 @@ import { TournamentModule } from '@tournament';
         }),
       ],
       useExistingPublisherService: SnsPublishersModule.Tokens.Services.SnsMessagePublisherService,
+    }),
+    SnsModule.forRootAsync({
+      imports: [ConfigModule],
+      useConfigFactory: (configService: ConfigService) => {
+        return {
+          clientName: 'test',
+        };
+      },
+      inject: [ConfigService],
     }),
     CacheModule.forRoot({
       cacheNamespaces: [QuestsProcessingCacheNamespace.CompletedQuests],
@@ -206,6 +218,7 @@ import { TournamentModule } from '@tournament';
     ConsumersModule,
     FantasyTargetsModule,
     TournamentModule,
+    TwitterStatsModule,
   ],
 })
 export class AppModule {

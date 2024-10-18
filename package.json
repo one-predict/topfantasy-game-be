@@ -38,6 +38,7 @@
     "@nestjs/schedule": "^4.0.2",
     "@sentry/nestjs": "^8.26.0",
     "@sentry/profiling-node": "^8.26.0",
+    "apify-client": "^2.9.7",
     "axios": "^1.6.8",
     "cache-manager": "^6.1.0",
     "cacheable": "^1.6.0",

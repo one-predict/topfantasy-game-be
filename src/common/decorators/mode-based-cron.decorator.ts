@@ -13,7 +13,7 @@ const ModeBasedCron = (
   { modes = DEFAULT_AVAILABLE_MODES, disabled, ...restOptions }: ModeBasedCronOptions = {},
 ) => {
   const isModeCompatible = modes.includes(getApplicationMode());
-
+  console.log(isModeCompatible);
   return Cron(cronName, {
     ...restOptions,
     disabled: !isModeCompatible || !!disabled,

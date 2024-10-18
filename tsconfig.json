@@ -58,7 +58,9 @@
       "@redis-lock/*": ["./src/redis-lock/*"],
       "@redis-lock": ["./src/redis-lock"],
       "@cache/*": ["./src/cache/*"],
-      "@cache": ["./src/cache"]
+      "@cache": ["./src/cache"],
+      "@twitter-stats/*": ["src/twitter-stats/*"],
+      "@twitter-stats": ["src/twitter-stats"],
     }
   }
 }

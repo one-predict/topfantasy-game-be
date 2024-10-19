@@ -5,11 +5,19 @@ import { InjectTransactionsManager, TransactionsManager } from '@core';
 import { FantasyTarget } from '@fantasy-targets/schemas';
 import { FantasyTargetEntity, MongoFantasyTargetEntity } from '@fantasy-targets/entities';
 import { FantasyTargetCategory } from '@fantasy-targets/enums';
+import {FantasyTargetStatistic} from "@fantasy-targets/types";
+
+export interface UpdateFantasyTargetEntityParams {
+  stars?: number;
+  fantasyPoints7Days?: number;
+  statistic7Days?: FantasyTargetStatistic;
+}
 
 export interface FantasyTargetRepository {
   findByCategory(category: FantasyTargetCategory): Promise<FantasyTargetEntity[]>;
   findByIds(ids: string[]): Promise<FantasyTargetEntity[]>;
   findById(id: string): Promise<FantasyTargetEntity>;
+  updateOneById(id: string, params: UpdateFantasyTargetEntityParams): Promise<void>;
 }
 
 @Injectable()
@@ -61,5 +69,12 @@ export class MongoFantasyTargetRepository implements FantasyTargetRepository {
       .exec();
 
     return target && new MongoFantasyTargetEntity(target);
+  }
+
+  public async updateOneById(id: string, params: UpdateFantasyTargetEntityParams) {
+    await this.fantasyTargetModel.updateOne({ _id: id }, params, {
+      session: this.transactionsManager.getSession(),
+      lean: true,
+    }).exec();
   }
 }

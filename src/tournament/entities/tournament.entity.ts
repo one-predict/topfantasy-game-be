@@ -15,7 +15,8 @@ export interface TournamentEntity {
   getRegistrationEndTimestamp(): number;
   getImageUrl(): string | undefined;
   getPaymentCurrency(): TournamentPaymentCurrency;
-  getAvailableProjectIds(): Array<string>;
+  getAvailableFantasyTargetIds(): Array<string>;
+  getAvailableFantasyTargetsPoints(): Record<string, number>;
 }
 
 export class MongoTournamentEntity implements TournamentEntity {
@@ -65,7 +66,11 @@ export class MongoTournamentEntity implements TournamentEntity {
     return this.tournamentDocument.paymentCurrency;
   }
 
-  public getAvailableProjectIds() {
-    return this.tournamentDocument.availableProjects;
+  public getAvailableFantasyTargetIds() {
+    return this.tournamentDocument.availableFantasyTargets;
+  }
+
+  public getAvailableFantasyTargetsPoints() {
+    return this.tournamentDocument.availableFantasyTargetsPoints;
   }
 }

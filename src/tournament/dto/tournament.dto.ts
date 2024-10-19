@@ -15,5 +15,5 @@ export class CreateTournamentParticipationDto {
 
   @IsArray()
   @IsString({ each: true })
-  selectedProjectIds: string[];
+  selectedFantasyTargetIds: string[];
 }

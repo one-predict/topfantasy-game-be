@@ -4,7 +4,7 @@ import { TournamentParticipationsEventType } from '@tournament';
 export interface TournamentParticipationCreatedEventData {
   object: {
     id: string;
-    selectedProjectIds: string[];
+    selectedFantasyTargetIds: string[];
     tournamentId: string;
     userId: string;
     fantasyPoints: number;

@@ -31,11 +31,14 @@ export class Tournament {
   @Prop({ required: true, type: mongoose.Schema.Types.Number })
   registrationEndTimestamp: number;
 
-  @Prop({ required: false, default: TournamentPaymentCurrency.Points, type: mongoose.Schema.Types.String })
+  @Prop({ required: false, default: TournamentPaymentCurrency.Coins, type: mongoose.Schema.Types.String })
   paymentCurrency: TournamentPaymentCurrency;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.Array })
-  availableProjects: string[];
+  @Prop([{ required: true, type: mongoose.Schema.Types.String }])
+  availableFantasyTargets: string[];
+
+  @Prop({ required: false, default: {}, type: mongoose.Schema.Types.Mixed })
+  availableFantasyTargetsPoints: Record<string, number>;
 }
 
 export const TournamentSchema = SchemaFactory.createForClass(Tournament);

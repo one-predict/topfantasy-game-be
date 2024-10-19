@@ -39,7 +39,7 @@ import { LockModule } from '@lock';
 import { RedisLockModule } from '@redis-lock';
 import { ConsumersModule } from '@consumers';
 import { SqsConsumersModule } from '@sqs-consumers';
-import { ProjectsModule } from '@projects';
+import { FantasyTargetsModule } from '@fantasy-targets';
 import { TournamentModule } from '@tournament';
 import { TwitterStatsModule } from '@twitter-stats';
 
@@ -216,7 +216,7 @@ import { TwitterStatsModule } from '@twitter-stats';
     QuestsModule,
     QuestsProcessingModule,
     ConsumersModule,
-    ProjectsModule,
+    FantasyTargetsModule,
     TournamentModule,
     TwitterStatsModule,
   ],

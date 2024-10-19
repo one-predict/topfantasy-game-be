@@ -18,7 +18,7 @@ import { TournamentParticipationCreatedEventData } from '@tournament/types';
 export interface CreateTournamentParticipationParams {
   userId: string;
   tournamentId: string;
-  selectedProjectIds: string[];
+  selectedFantasyTargetIds: string[];
   walletAddress?: string;
 }
 
@@ -75,7 +75,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
         throw new UnprocessableEntityException('User already participated in the tournament.');
       }
 
-      if (tournament.getPaymentCurrency() === TournamentPaymentCurrency.Points) {
+      if (tournament.getPaymentCurrency() === TournamentPaymentCurrency.Coins) {
         await this.userService.withdrawCoins(params.userId, tournament.getEntryPrice());
       }
 
@@ -85,7 +85,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
         tournament: params.tournamentId,
         user: params.userId,
         fantasyPoints: 0,
-        selectedProjects: params.selectedProjectIds,
+        selectedFantasyTargets: params.selectedFantasyTargetIds,
         walletAddress: params.walletAddress,
       });
 
@@ -98,7 +98,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
             id: tournamentParticipation.getId(),
             tournamentId: tournamentParticipation.getTournamentId(),
             userId: tournamentParticipation.getUserId(),
-            selectedProjectIds: tournamentParticipation.getSelectedProjectIds(),
+            selectedFantasyTargetIds: tournamentParticipation.getSelectedFantasyTargetIds(),
             fantasyPoints: tournamentParticipation.getFantasyPoints(),
           },
         },

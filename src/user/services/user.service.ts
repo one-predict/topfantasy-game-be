@@ -69,9 +69,11 @@ export class UserServiceImpl implements UserService {
 
   public async create(params: CreateUserParams) {
     return this.transactionsManager.useTransaction(async () => {
+      const initialCoinsBalance = params.coinsBalance ?? 0;
+
       const user = await this.userRepository.create({
         externalId: params.externalId,
-        coinsBalance: params.coinsBalance,
+        coinsBalance: params.referralId ? initialCoinsBalance + this.REFERRALS_REWARD : initialCoinsBalance,
         username: params.username,
         firstName: params.firstName,
         lastName: params.lastName,

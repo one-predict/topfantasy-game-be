@@ -4,7 +4,7 @@ import { FantasyTargetRepository } from '@fantasy-targets/repositories';
 import { FantasyTargetDto } from '@fantasy-targets/dto';
 import { FantasyTargetEntityMapper } from '@fantasy-targets/entities-mappers';
 import { FantasyTargetCategory } from '@fantasy-targets/enums';
-import { FantasyTargetStatistic } from "@fantasy-targets/types";
+import { FantasyTargetStatistic } from '@fantasy-targets/types';
 
 export interface UpdateFantasyTargetParams {
   stars?: number;

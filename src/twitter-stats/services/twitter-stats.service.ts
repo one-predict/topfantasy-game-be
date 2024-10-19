@@ -5,7 +5,7 @@ import { TweetRepository } from '@twitter-stats/repositories';
 import { ModeBasedCron } from '@common/decorators';
 import { MongoTweetEntity, TweetEntity } from '@twitter-stats/entities';
 import { FantasyTargetService } from '@fantasy-targets/services';
-import {InjectFantasyTargetRepository, InjectFantasyTargetService} from '@fantasy-targets/decorators';
+import { InjectFantasyTargetRepository, InjectFantasyTargetService } from '@fantasy-targets/decorators';
 import { InjectTweetRepository } from '@twitter-stats/decorators';
 import { ApifyClient } from 'apify-client';
 import { ConfigService } from '@nestjs/config';

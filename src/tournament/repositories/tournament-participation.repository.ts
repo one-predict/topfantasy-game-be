@@ -82,6 +82,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
         imageUrl: string;
       };
       fantasyPoints: number;
+      selectedFantasyTargets: string[];
     }> = await this.tournamentParticipationModel
       .aggregate([
         { $match: { tournament: new ObjectId(tournamentId) } },
@@ -104,6 +105,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
               imageUrl: 1,
             },
             fantasyPoints: 1,
+            selectedFantasyTargets: 1,
           },
         },
       ])
@@ -115,6 +117,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
         username: participation.user.username,
         imageUrl: participation.user.imageUrl,
         fantasyPoints: participation.fantasyPoints,
+        selectedFantasyTargetIds: participation.selectedFantasyTargets,
       })),
     };
   }

@@ -6,7 +6,7 @@ import { Tweet, TweetSchema } from '@twitter-stats/schemas';
 import { TwitterStatsServiceImpl } from '@twitter-stats//services';
 import { MongoTweetStatRepository } from '@twitter-stats/repositories';
 import TwitterStatsTokens from './twitter-stats.module.tokens';
-import { ProjectsModule } from '@projects/projects.module';
+import { FantasyTargetsModule } from '@fantasy-targets/fantasy-targets.module';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { ProjectsModule } from '@projects/projects.module';
       isGlobal: true,
     }),
     CoreModule,
-    ProjectsModule,
+    FantasyTargetsModule,
   ],
   controllers: [],
   providers: [

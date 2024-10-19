@@ -4,8 +4,8 @@ import { TransactionsManager, InjectTransactionsManager } from '@core';
 import { TweetRepository } from '@twitter-stats/repositories';
 import { ModeBasedCron } from '@common/decorators';
 import { MongoTweetEntity, TweetEntity } from '@twitter-stats/entities';
-import { FantasyProjectService } from '@projects/services';
-import { InjectFantasyProjectService } from '@projects/decorators';
+import { FantasyTargetService } from '@fantasy-targets/services';
+import { InjectFantasyTargetRepository } from '@fantasy-targets/decorators';
 import { InjectTweetRepository } from '@twitter-stats/decorators';
 import { ApifyClient } from 'apify-client';
 import { ConfigService } from '@nestjs/config';
@@ -37,7 +37,7 @@ export class TwitterStatsServiceImpl implements TwitterStatsService {
   private apifyClient: ApifyClient;
 
   constructor(
-    @InjectFantasyProjectService() private readonly projectService: FantasyProjectService,
+    @InjectFantasyTargetRepository() private readonly projectService: FantasyTargetService,
     @InjectTweetRepository() private readonly tweetRepository: TweetRepository,
     @InjectTransactionsManager() private readonly transactionsManager: TransactionsManager,
     @InjectModel(Tweet.name) private tweetModel: Model<Tweet>,

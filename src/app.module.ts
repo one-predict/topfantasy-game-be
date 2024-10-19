@@ -102,7 +102,7 @@ import { TwitterStatsModule } from '@twitter-stats';
       },
       inject: [ConfigService],
     }),
-    SqsModule.forRootAsync({
+    SnsModule.forRootAsync({
       imports: [ConfigModule],
       useConfigFactory: (configService: ConfigService) => {
         return {
@@ -149,15 +149,6 @@ import { TwitterStatsModule } from '@twitter-stats';
         }),
       ],
       useExistingPublisherService: SnsPublishersModule.Tokens.Services.SnsMessagePublisherService,
-    }),
-    SnsModule.forRootAsync({
-      imports: [ConfigModule],
-      useConfigFactory: (configService: ConfigService) => {
-        return {
-          clientName: 'test',
-        };
-      },
-      inject: [ConfigService],
     }),
     CacheModule.forRoot({
       cacheNamespaces: [QuestsProcessingCacheNamespace.CompletedQuests],

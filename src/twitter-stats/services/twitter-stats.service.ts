@@ -5,7 +5,7 @@ import { TweetRepository } from '@twitter-stats/repositories';
 import { ModeBasedCron } from '@common/decorators';
 import { MongoTweetEntity, TweetEntity } from '@twitter-stats/entities';
 import { FantasyTargetService } from '@fantasy-targets/services';
-import { InjectFantasyTargetRepository } from '@fantasy-targets/decorators';
+import {InjectFantasyTargetRepository, InjectFantasyTargetService} from '@fantasy-targets/decorators';
 import { InjectTweetRepository } from '@twitter-stats/decorators';
 import { ApifyClient } from 'apify-client';
 import { ConfigService } from '@nestjs/config';
@@ -37,7 +37,7 @@ export class TwitterStatsServiceImpl implements TwitterStatsService {
   private apifyClient: ApifyClient;
 
   constructor(
-    @InjectFantasyTargetRepository() private readonly projectService: FantasyTargetService,
+    @InjectFantasyTargetService() private readonly projectService: FantasyTargetService,
     @InjectTweetRepository() private readonly tweetRepository: TweetRepository,
     @InjectTransactionsManager() private readonly transactionsManager: TransactionsManager,
     @InjectModel(Tweet.name) private tweetModel: Model<Tweet>,
@@ -58,7 +58,7 @@ export class TwitterStatsServiceImpl implements TwitterStatsService {
 
   @ModeBasedCron('* * * * *')
   public async collectProjectTweetStats() {
-    const projects = await this.projectService.list();
+    const projects = [] as any;
 
     projects.map(async (project) => {
       const tweets = await this.apifyFetch(

@@ -12,7 +12,7 @@ export default class FantasyTargetController {
   @Get('/fantasy-targets')
   @UseGuards(AuthGuard)
   public async listFantasyTargets() {
-    return this.fantasyTargetService.listByCategory(FantasyTargetCategory.Projects);
+    return this.fantasyTargetService.listByCategory(FantasyTargetCategory.Influencers);
   }
 
   @Post('/fantasy-targets/by-ids-list')
